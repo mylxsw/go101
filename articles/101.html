@@ -1,68 +1,56 @@
 ﻿<h1>Go 101</h1>
 
-
-<div class="row">
-	<div class="col-xs-12 col-sm-7">
-		<div><small>
-		<p>
-		<i>Go 101</i> is a book focusing on Go syntax/semantics
-		and all kinds of details (Go 1.10 ready).
-		The book also tries to help gophers understand Go deeply and thoroughly.
-		</p>
-		<ul>
-		<li>
-		The book is written by <a href="https://twitter.com/TapirLiu">@TapirLiu</a>.
-		</li>
-		<li>
-		The <a href="https://go101.org">go101.org</a> website is hosted on
-		<a href="https://cloud.google.com/appengine/docs/standard/go/">App Engine</a>.
-		Surely, it is built with <a href="https://golang.org">Go</a>.
-		</li>
-		<li>
-		Code is hosted both on <a href="https://gitlab.com/go101/go101">Gitlab</a>
-		and <a href="https://github.com/go101/go101">Github</a>.
-		You can also start a local go101 server for faster browsing
-		by running either of the following two commands:
-		<ul>
-		<li><code>go get -u gitlab.com/go101/go101 && go101</code></li>
-		<li><code>go get -u github.com/go101/go101 && go101</code></li>
-		</ul>
-		</li>
-		</ul>
-		</small></div>
-	</div>
-	<div class="col-xs-12 col-sm-5">
-		<div class="alert alert-success"><small>
-		Support Go 101 by playing <a href="https://www.tapirgames.com">Tapir's games</a>.
-		<ul>
-		<li>
-			<a href="https://www.tapirgames.com/App/Color-Infection">Color Infection</a> - a physics based casual puzzle original game.
-		</li>
-		<li>
-			<a href="https://www.tapirgames.com/App/Rectangle-Pushers">Rectangle Pushers</a> - a casual puzzle original game.
-		</li>
-		<li>
-			<a href="https://www.tapirgames.com/App/Let-Us-Play-With-Particles">Let's Play With Particles</a> - a casual action original game.
-		</li>
-		</ul>
-		</small></div>
-	</div>
-</div>
-
 <div>
 
+	<p>
+	<i>Go 101</i> is a book focusing on Go syntax/semantics
+	and all kinds of details (Go 1.11 ready).
+	This book also tries to help gophers gain a deep and thorough understanding of Go.
+	</p>
+	<ul>
+	<li>
+	The book is maintained by <a href="https://twitter.com/TapirLiu">@TapirLiu</a>.
+	</li>
+	<li>
+	The <a href="https://go101.org">go101.org</a> website is hosted on
+	<a href="https://cloud.google.com/appengine/docs/standard/go/">App Engine</a>.
+	Surely, it is built with <a href="https://golang.org">Go</a>.
+	</li>
+	<li>
+	Code is hosted on both <a href="https://gitlab.com/go101/go101">Gitlab</a>
+	and <a href="https://github.com/go101/go101">Github</a>.
+	You can also start a local go101 server for faster browsing
+	by running either of the following two commands:
+	<ul>
+	<li><code>go get -u gitlab.com/go101/go101 && go101</code></li>
+	<li><code>go get -u github.com/go101/go101 && go101</code></li>
+	</ul>
+	</li>
+	</ul>
+
+</div>
+
+<div class="alert alert-warning"><small>
+	NOTE: if your last <code>go get -u</code> command run was at before <b><i>July 28th, 2018</i></b>,
+	please run this command again to install the latest <code>go101</code> program and articles.
+</small></div>
+
+<div>
 Index:
 
 <ul>
 	<li><a href="101-about.html">About Go 101</a> - why this book is written.</li>
 	<li><A href="acknowledgements.html">Acknowledgements</a></li>
+</ul>
+
+<ul>
 	<li><a href="introduction.html">An Introduction Of Go</a> - why Go is worth learning.</li>
 	<li><a href="go-sdk.html">The Official Go SDK</a> - how to compile and run Go programs.</li>
 </ul>
 
 <ul>
 <li>
-Be Familiar With Go Code
+Become Familiar With Go Code
 
 	<ul>
 	<li><a href="basic-code-elements-introduction.html">Introduction Of Source Code Elements</a></li>
@@ -88,27 +76,27 @@ Go Type System
 	<li><a href="type-system-overview.html">Overview Of Go Type System</a> - a must read to master Go programming.</li>
 	<li><a href="pointer.html">Pointers</a></li>
 	<li><a href="struct.html">Structs</a></li>
-	<li><a href="value-part.html">Value Parts</a> - to easily and deeply understand Go values.</li>
+	<li><a href="value-part.html">Value Parts</a> - to gain a deeper understanding into Go values.</li>
 	<li><a href="container.html">Arrays, Slices And Maps</a> - first-level citizen container types.</li>
 	<li><a href="string.html">Strings</a></li>
 	<li><a href="function.html">Functions</a> - variadic functions, function types and values.</li>
 	<li><a href="channel.html">Channels</a> - the Go way to do concurrency synchronizations.</li>
 	<li><a href="method.html">Methods</a></li>
-	<li><a href="interface.html">Interfaces</a></li>
-	<li><a href="type-embedding.html">Type Embedding</a></li>
+	<li><a href="interface.html">Interfaces</a> - value boxes used to do reflection and polymorphism.</li>
+	<li><a href="type-embedding.html">Type Embedding</a> - type extension in the Go way.</li>
 	<li><a href="unsafe.html">Type-Unsafe Pointers</a></li>
-	<li><a href="generic.html">Type Compositions</a> - built-in generic support in Go.</li>
-	<li><a href="reflection.html">Reflections in Go</a> - the <code>reflect</code> standard package.</li>
+	<li><a href="generic.html">Built-in Generics</a></li>
+	<li><a href="reflection.html">Reflections</a> - the <code>reflect</code> standard package.</li>
 	</ul>
 </li>
 </ul>
 
 <ul>
 <li>
-Miscellanies
+Miscellaneous
 
 	<ul>
-	<li><a href="summaries.html">Some Simple Summaries</a></li>
+	<li><a href="summaries.html">Simple Summaries</a></li>
 	<li><a href="nil.html"><code>nil</code> In Go</a></li>
 	<li><a href="value-conversions-assignments-and-comparisons.html">Value Conversion, Assignment And Comparison Rules</a></li>
 	<li><a href="exceptions.html">Syntax/Semantics Exceptions</a></li>
@@ -117,9 +105,7 @@ Miscellanies
 	<li><a href="panic-and-recover-use-cases.html">Some Panic/Recover Use Cases</a></li>
 	<li><a href="panic-and-recover-more.html">The Right Places To Call The Built-in <code>recover</code> Function</a></li>
 	<li><a href="blocks-and-scopes.html">Code Blocks And Identifier Scopes</a></li>
-	<!--
 	<li><a href="evaluation-orders.html">Expression Evaluation Orders</a></li>
-	-->
 	<li><a href="value-copy-cost.html">Value Copy Costs In Go</a></li>
 	<li><a href="bounds-check-elimination.html">Bounds Check Elimination</a></li>
 	</ul>
@@ -138,7 +124,7 @@ Concurrent Programming
 	<li><a href="concurrent-synchronization-more.html">Other Concurrency Synchronization Techniques</a> - the <code>sync</code> standard package.</li>
 	<li><a href="concurrent-atomic-operation.html">Atomic Operations</a> - the <code>sync/atomic</code> standard package.</li>
 	<li><a href="memory-model.html">Memory Order Guarantees In Go</a></li>
-	<li><a href="concurrent-common-mistakes.html">Some Common Concurrent Programming Mistakes</a></li>
+	<li><a href="concurrent-common-mistakes.html">Common Concurrent Programming Mistakes</a></li>
 	</ul>
 
 </li>
@@ -152,7 +138,7 @@ Memory
 	<ul>
 	<li><a href="memory-block.html">Memory Blocks</a></li>
 	<li><a href="memory-layout.html">Memory Layouts</a></li>
-	<li><a href="memory-leaking.html">Memory Leaking</a></li>
+	<li><a href="memory-leaking.html">Memory Leaking Scenarios</a></li>
 	<!--
 	<li>Memory Garbage Collection</li>
 	<li>Memory Management</li>
@@ -163,7 +149,7 @@ Memory
 </ul>
 
 <ul>
-<li><a href="more.html">More Go Related Knowledges</a></li>
+<li><a href="more.html">More Go Related Topics</a></li>
 </ul>
 
 <ul>

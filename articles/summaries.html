@@ -1,4 +1,4 @@
-<h1>Some Simple Summaries</h1>
+<h1>Simple Summaries</h1>
 
 <div>
 Index
@@ -8,6 +8,7 @@ Index
 	(and functions <code>cap</code>, <code>close</code>, <code>delete</code>, <code>make</code>)</a>.</li>
 <li><a href="#container-types">Comparison of built-in container types</a>.</li>
 <li><a href="#composite-literals-types">Types which values can be represented with composite literals (<code>T{...}</code>)</a>.</li>
+<li><a href="#type-sizes">Value sizes of all kinds of types</a>.</li>
 <li><a href="#nil-zero-value-types">Types which zero values can be represented with <code>nil</code></a>.</li>
 <li><a href="#types-can-have-methods">Types we can implement methods for</a>.</li>
 <li><a href="#types-can-be-embedded">Types which can be anonymously embedded in other types</a>.</li>
@@ -240,6 +241,15 @@ Values of following types can be represented with composite literals:
 </tbody>
 </table>
 
+<p class="anchor" id="type-sizes"></p>
+<h3>
+	Value sizes of all kinds of types
+</h3>
+
+<p>
+Please read <a href="value-copy-cost.html">value copy cost</a> for details.
+</p>
+
 <p class="anchor" id="nil-zero-value-types"></p>
 <h3>
 	Types which zero values can be represented with <code>nil</code>
@@ -359,8 +369,7 @@ its return results must be constants.
 		<li>
 		the expressions <code>len(s)</code> and <code>cap(s)</code> are constants
 		if the type of <code>s</code> is an array or pointer to an array
-		and the expression <code>s</code> does not contain channel receives or (non-constant) function calls
-		(in other words, <code>s</code> can be array variables and arry pointer variables).
+		and the expression <code>s</code> does not contain channel receives or (non-constant) function calls.
 		</li>
 		</ul>
 		</div>
@@ -414,7 +423,7 @@ Following values can't be taken addresses:
 <li>dynamic values of interface values (exposed by type assertions)</li>
 <li>constant values</li>
 <li>literal values</li>
-<li>package-level functions</li>
+<li>declared functions</li>
 <li>methods (used as function values)</li>
 <li>intermediate values
 	<ul>
@@ -436,13 +445,13 @@ Following values can't be taken addresses:
 <div class="alert alert-success">
 Please note, there is a syntax sugar, <code>&T{}</code>, in Go.
 It is a short form of <code>tmp := T{}; (&tmp)</code>,
-so <code>&T{}</code> is legal doesn't mean
+so <code>&T{}</code> is legal doesn't mean the composite literal
 <code>T{}</code> is addressable.
 </div>
 <p></p>
 
 <div>
-BTW, following values can be taken addresses:
+BTW, following values can be taken addresses (except the just mentioned composite literals):
 <ul>
 <li>variables</li>
 <li>fields of addressable structs</li>
@@ -471,7 +480,7 @@ array types with uncomparable elements
 </li>
 </ul>
 <p>
-Types which don't support comparisons can't be used as the key type of map types.
+Types which don't support comparisons can't be used as the key types of map types.
 </p>
 </div>
 
@@ -483,8 +492,7 @@ although map, slice and function types don't support comparisons,
 their values can be compared to the bare <code>nil</code> identifier.
 </li>
 <li>
-comparing interface values with uncomparable dynamic types will panic at run time,
-except the danymic value of one of the compared interfaces is untyped <code>nil</code>.
+comparing two interface values with the same uncomparable dynamic types will panic at run time.
 </li>
 </ul>
 
@@ -505,7 +513,7 @@ except the danymic value of one of the compared interfaces is untyped <code>nil<
 <tbody>
 	<tr class="active">
 	<th scope="row" class="text-center">import</th>
-	<td>No</td>
+	<td>No (for the standard compiler)</td>
 	</tr>
 	<tr>
 	<th scope="row" class="text-center">type</th>
@@ -516,7 +524,7 @@ except the danymic value of one of the compared interfaces is untyped <code>nil<
 	<td>
 		Yes for package-level variables.
 		<br/>
-		No for local variables.
+		No for local variables (for the standard compiler).
 	</td>
 	</tr>
 	<tr>
@@ -529,7 +537,7 @@ except the danymic value of one of the compared interfaces is untyped <code>nil<
 	</tr>
 	<tr>
 	<th scope="row" class="text-center">label</th>
-	<td>No</td>
+	<td>No (for the standard compiler)</td>
 	</tr>
 </tbody>
 </table>
@@ -590,6 +598,7 @@ Following expressions can return an optional additional bool return value:
 <thead>
 	<tr>
 	<th class="text-center"></th>
+	<th class="text-center">Syntax</th>
 	<th class="text-center">Meaning Of The Optional Return</th>
 	<th class="text-center">Will Omitting The Optional Return Affect Program Behavior?</th>
 	</tr>
@@ -597,16 +606,25 @@ Following expressions can return an optional additional bool return value:
 <tbody>
 	<tr class="active">
 	<th scope="row" class="text-center" style="vertical-align: middle">map element access</th>
+	<td style="vertical-align: middle; white-space: nowrap;" class="text-center">
+		e, ok = aMap[key]
+	</td>
 	<td>whether or not the accessed key is present in the map</td>
 	<td>No</td>
 	</tr>
 	<tr>
 	<th scope="row" class="text-center" style="vertical-align: middle">channel value receive</th>
+	<td style="vertical-align: middle; white-space: nowrap;" class="text-center">
+		e, ok = &lt;- aChannel
+	</td>
 	<td>whether or not the received value was sent before the channel was closed</td>
 	<td>No</td>
 	</tr>
 	<tr class="active">
 	<th scope="row" class="text-center" style="vertical-align: middle">type assertion</th>
+	<td style="vertical-align: middle; white-space: nowrap;" class="text-center">
+		v, ok = anInterface.(T)
+	</td>
 	<td>whether or not the dynamic type of the interface value matches the asserted type</td>
 	<td>Yes<br/>(when the optional bool return is omitted,
 		a panic is created if the asserted type is not an ok type)</td>
@@ -668,11 +686,56 @@ Please read <a href="string.html#string-concatenation">strings in Go</a> for det
 
 <!--
 
+Fatal errors which can be recovered:
+* https://play.golang.org/p/bYrfLTzXpc_o bad Mutex.Unlock call
+* create goroutine with nil function
+* memory allcaotion fails
+
+The optimizations made by gc
+* len([]rune(str)) // since Go 1.11
+* string ...
+  []byte <-> stirng
+  len([]rune(string))
+  string + string
+* since Go 1.11, https://github.com/golang/go/issues/21266#issuecomment-384706868
+  possible future append(s, make([]T)) optimiation
+  https://docs.google.com/presentation/d/1tpeJZFObkeick4CF-mx0L3CeCgvT15B96aJeRpxEPcE/preview#slide=id.g3bc6fcf60c_0_62
+* memclr
+* interface copy
+* interface dynamic pointer value
+* 4 fields struct is much faster than more field struct
+  https://docs.google.com/presentation/d/1tpeJZFObkeick4CF-mx0L3CeCgvT15B96aJeRpxEPcE/preview#slide=id.g3bc6fcf60c_0_157
+* BCE
+  https://docs.google.com/presentation/d/1tpeJZFObkeick4CF-mx0L3CeCgvT15B96aJeRpxEPcE/preview#slide=id.g3bc6fcf60c_0_169
+
+
 short and standard variable declaration comparison
 
 differences between built-in functions and custom functions.
+  * generic
+  * built-in function returns can't be omitted
+  * builtin-in functions can't be used as values, they have no types.
+  * built-in doon't need to be imported before using them, even their identifiers starts with lower..
+  * 
 
 built-in function list
+
+	"append":  predeclaredFunction,
+	"cap":     predeclaredFunction,
+	"close":   predeclaredFunction,
+	"complex": predeclaredFunction,
+	"copy":    predeclaredFunction,
+	"delete":  predeclaredFunction,
+	"imag":    predeclaredFunction,
+	"len":     predeclaredFunction,
+	"make":    predeclaredFunction,
+	"new":     predeclaredFunction,
+	"panic":   predeclaredFunction,
+	"print":   predeclaredFunction,
+	"println": predeclaredFunction,
+	"real":    predeclaredFunction,
+	"recover": predeclaredFunction,
+
 
 #returns-discardable
 return results of calls to which built-in functions can be discarded.
@@ -682,6 +745,8 @@ values of which kinds of types can be for-ranged.
 ways to return a function: naturally return, return keyword, panic, runtime.Goexit()
 
 the form <code>v[k]</code> can be used to access element of value of which kinds of types?
+
+
 
 -->
 

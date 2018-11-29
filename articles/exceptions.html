@@ -39,6 +39,10 @@ The basic rule doesn't apply to calls of some built-in functions with multiple i
 including <code>copy</code>, <code>delete</code>, <code>print</code> and <code>println</code> functions.
 A calls to any of these functions can't take a solo multi-return function call as the only argument.
 </div>
+<!--
+https://github.com/golang/go/issues/15992
+https://github.com/golang/go/issues/20656
+-->
 
 <p><i>
 (The basic rule may <a href="https://github.com/golang/go/issues/15992">apply to</a>
@@ -56,7 +60,7 @@ on an interface value receiver as the only argument.
 
 <p><i>
 (This exception scenario may be a bug of the standard Go compiler.
-At present, Go 1.10, the bug still exists.)
+At present, Go 1.11, the bug still exists.)
 </i></p>
 
 Example:
@@ -70,6 +74,8 @@ func f0() float64 {return 1}
 func f1() (float64, float64) {return 1, 2}
 func f2(float64, float64) {}
 func f3(float64, float64, float64) {}
+func f4()(x, y []int) {return}
+func f5()(x map[int]int, y int) {return}
 
 type I interface {m()(float64, float64)}
 type T struct{}
@@ -88,6 +94,8 @@ func main() {
 	/*
 	f3(123, f1())
 	f3(f1(), 123)
+	copy(f4())
+	delete(f5())
 	println(f1())
 	_ = complex(I(T{}).m())
 	*/
@@ -104,7 +112,7 @@ Local variables can't be declared but not used.
 </div>
 
 <div>
-Exception:
+Exception 1:
 <div class="alert alert-success">
 Function parameter and result variables,
 which can also be viewed as local variables,
@@ -278,6 +286,7 @@ func main() {
 </code></pre>
 </div>
 
+<!--
 <h3>Precedences Of Unary Operators</h3>
 
 <div>
@@ -332,6 +341,7 @@ func main() {
 }
 </code></pre>
 </div>
+-->
 
 <h3>The Addressability Of Container Elements</h3>
 
@@ -438,7 +448,8 @@ Names of declared functions can't be duplicated in one pacakge.
 
 Exception:
 <div class="alert alert-success">
-There can be multiple functions declared with names as <code>init</code>.
+There can be multiple functions declared with names as <code>init</code>
+(with the prototype <code>func()</code>).
 </div>
 
 <h3>Function Calls</h3>
@@ -498,7 +509,7 @@ func main() {
 
 The basic rule:
 <div class="alert alert-info">
-The return values of a function call can be all absent.
+The return values of a function call can be absent all together.
 </div>
 
 Exception:
@@ -568,7 +579,7 @@ func main() {
 </code></pre>
 </div>
 
-<h3>Comparison</h3>
+<h3>Comparisons</h3>
 
 <div>
 The basic rule:
@@ -584,7 +595,7 @@ Map, slice and function types don't support comparison.
 
 Exception in exception:
 <div class="alert alert-success">
-Map, slice and function values can be compared to the <code>nil</code> identifier.
+Map, slice and function values can be compared to the bare <code>nil</code> identifier.
 </div>
 
 Example:
@@ -612,6 +623,29 @@ func main() {
 </code></pre>
 </div>
 
+<h3>Comparisons 2</h3>
+
+<div>
+The basic rule:
+<div class="alert alert-info">
+In any comparison, if one operand can be assignable to the type of the other, then the comparison is valid.
+</div>
+
+<div>
+Exception:
+<div class="alert alert-success">
+If one of the two operands in a comparison is an interface value,
+and the other operand is a non-interface value of an
+<a href="type-system-overview.html#types-not-support-comparison">uncomparable type</a>
+(which should implement the former operand interface type),
+then the comparison is invalid, even if the non-interface value
+can be implicitly converted to the interface type.
+</div>
+
+Please read <a href="value-conversions-assignments-and-comparisons.html#comparison-rules"></a> for examples.
+</div>
+
+<!--
 <h3>Comparing Interface Values</h3>
 
 <div>
@@ -640,10 +674,11 @@ func main() {
 	//_ = x == x // will panic
 	//_ = y == y // will panic
 	_ = x == z // false, will not panic
-	_ = x == y   // false, will not panic
+	_ = x == y // false, will not panic
 }
 </code></pre>
 </div>
+-->
 
 <h3>The Blank Composite Literals</h3>
 
@@ -701,9 +736,9 @@ Exception 2:
 The element index (order) will not be returned alongside of each iterated element when iterating channels.
 </div>
 
-Exception 3:
+Sugar:
 <div class="alert alert-success">
-Array pointers can also be ranged to iterate array elements.
+Array pointers can also be ranged to iterate array elements, though pointers are not containers.
 </div>
 
 BTW, accessing array elements on array pointers (<code>pArray[index]</code>)
@@ -801,6 +836,11 @@ It can't be used in variable declarations and many other places where
 general constants can show up.
 </div>
 
+Exception 2:
+<div class="alert alert-success">
+<code>iota</code> can only be used within constant decclartions.
+</div>
+
 </div>
 
 <p class="anchor" id="behaviors-on-missing-optional-result"></p>
@@ -841,4 +881,8 @@ func main() {
 </div>
 
 </div>
+
+<!--
+https://github.com/golang/go/issues/27451
+-->
 

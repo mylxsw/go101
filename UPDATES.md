@@ -1,5 +1,38 @@
 
 
+### 1.11.f (2018/Nov/09)
+
+* rearrange [Go Details 101](https://go101.org/article/details.html), more details are added.
+
+### 1.11.e (2018/Oct/26)
+
+* published [Evaluation Orders](https://go101.org/article/evaluation-orders.html).
+* modify some descriptions for
+  * [program resource initialization order](https://go101.org/article/packages-and-imports.html#initialization-order)
+
+### 1.11.d (2018/Oct/18)
+
+* remove "Comparing Interface Values" from [Syntax/Semantics Exceptions In Go](https://go101.org/article/exceptions.html).
+* add "Comparisons 2" to [Syntax/Semantics Exceptions In Go](https://go101.org/article/exceptions.html).
+* modify some descriptions for
+  * [comparison rules](https://go101.org/article/value-conversions-assignments-and-comparisons.html#comparison-rules)
+  * [package hierarchy](https://go101.org/article/packages-and-imports.html#package)
+
+### 1.11.c (2018/Sep/22)
+
+* add a new tip [How to make a struct type uncomparable?](https://go101.org/article/tips.html#make-struct-type-uncomparable).
+* add a new tip [Try to reset pointers in freed-up slice elements](https://go101.org/article/tips.html#reset-pointers-for-dead-elements).
+* add a new tip [Make optimizations by using BCE](https://go101.org/article/tips.html#make-using-of-bce).
+* remove "Precedences Of Unary Operators" from [Syntax/Semantics Exceptions In Go](https://go101.org/article/exceptions.html).
+
+### 1.11.b (2018/Sep/09)
+
+* published [Go Tips 101](https://go101.org/article/tips.html).
+
+### 1.11.a (2018/Sep/01)
+
+* mention 1.11 new `wasm` GOARCH in [More Go Related Knowledges](https://go101.org/article/more.html#cross-platform-compiling).
+* mention 1.11 new `go mod` command in [The Official Go SDK](https://go101.org/article/go-sdk.html).
 
 ### 1.10.g (2018/Jun/02)
 

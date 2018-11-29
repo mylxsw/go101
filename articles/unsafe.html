@@ -14,11 +14,11 @@ their values can't be converted to each other.
 The pointers explained in that article are called type-safe pointers actually.
 Although the restrictions on type-safe pointers really make
 us be able to write safe Go code with ease,
-they also make some obstacles to write efficient code for some scenarios.
+they also make some obstacles to write efficient code in some scenarios.
 </p>
 
 <p>
-In fact, up to currrent (Go 1.10), Go also supports type-unsafe pointers,
+In fact, up to currrent (Go 1.11), Go also supports type-unsafe pointers,
 which are pointers without the restrictions made for safe pointers.
 Type-unsafe pointers are also called unsafe pointers in Go.
 Go unsafe pointers are much like C pointers,
@@ -43,7 +43,7 @@ pointers for any reason, not only should you know the above mentioned risks,
 but also should you follow the instructions written in official Go
 documentations and clearly understand the effects of each unsafe pointer use,
 so that you can write safe Go code with unsafe pointers,
-at least if you use the standard Go compiler in Go SDK 1.10.
+at least if you use the standard Go compiler in Go SDK 1.11.
 </p>
 
 <h3>About The <code>unsafe</code> Standard Package</h3>
@@ -147,7 +147,7 @@ func main() {
 
 <p>
 Please note, the above print results are for the standard
-Go compiler 1.10 on Linux amd64 OSes.
+Go compiler 1.11 on Linux amd64 OSes.
 </p>
 
 </div>
@@ -788,7 +788,8 @@ func ByteSlice2String(bs []byte) (str string) {
 	strHdr.Data = sliceHdr.Data
 	strHdr.Len = sliceHdr.Len
 	// This KeepAlive line is essential to make the 
-	// ByteSlice2String function be always valid.
+	// ByteSlice2String function be always valid
+	// when it is provided in custom packages.
 	runtime.KeepAlive(&bs)
 	return
 }
@@ -820,7 +821,7 @@ However, we should treat the result slice as
 an immutable value and never modify its elements.
 </p>
 
-By the way, for the standard Go compiler, currently (Go 1.10),
+By the way, for the standard Go compiler, currently (Go 1.11),
 there is a more efficient (and more unsafe) way to convert
 a byte slice to a string.
 
@@ -844,9 +845,10 @@ It is more efficient than the above one.
 <p>
 From the above content, we know that, for some scenarios,
 the unsafe mechanism can help us write more efficient Go code.
-However, it is very easy to introduce some subtle bugs when using the unsafe mechanism.
+However, it is very easy to introduce some subtle bugs which have
+very low possibilities to produce when using the unsafe mechanism.
 A program with these bugs may run well for a long time,
-but suddenly behave abnormally and even crash some time later.
+but suddenly behave abnormally and even crash at a later time.
 Such bugs are very hard to detect and debug.
 </p>
 
